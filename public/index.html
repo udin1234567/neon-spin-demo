@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Neon Spin Demo</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,Arial;color:#f8f8ff;background:radial-gradient(circle at top,#31205d,#090b16 55%);min-height:100vh}
+.wrap{width:min(920px,94%);margin:auto;padding:24px 0 45px}.top{display:flex;justify-content:space-between;gap:12px;align-items:center}.brand{font-size:25px;font-weight:900}.brand span{color:#ffd34e}.pill,.box{background:#12162a;border:1px solid #303756;border-radius:14px}.pill{padding:9px 13px}.muted{color:#9ba4c8;font-size:13px}.screen{max-width:430px;margin:35px auto}.box{padding:20px}.box h2{text-align:center;margin-top:4px}.input{width:100%;padding:12px;margin:6px 0;border-radius:10px;border:1px solid #333b60;background:#090c18;color:#fff}.btn{width:100%;padding:12px;border:0;border-radius:11px;font-weight:900;cursor:pointer;margin-top:8px}.gold{background:#ffd34e;color:#201500}.ghost{background:#252b48;color:#fff}.error{color:#ff809a;min-height:22px;text-align:center}.hidden{display:none}.machine{margin-top:22px;background:#111426;border:1px solid #343b61;border-radius:22px;padding:15px}.reels{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;background:#080a13;padding:9px;border-radius:15px}.cell{aspect-ratio:1;display:grid;place-items:center;font-size:clamp(36px,9vw,65px);background:#1c213b;border-radius:12px}.win{box-shadow:0 0 25px #ffd34e}.controls{display:flex;gap:10px;align-items:center;justify-content:center;margin:14px 0}.bet{width:95px;padding:11px;background:#080b16;color:#fff;border:1px solid #343b61;border-radius:10px}.spin{padding:13px 35px;background:#ffd34e;border:0;border-radius:12px;font-weight:900;font-size:17px}.spin:disabled{opacity:.5}.msg{text-align:center;color:#35e6ff;min-height:24px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}.card{padding:15px;background:#111426;border:1px solid #303756;border-radius:14px}.card h3{margin:0 0 10px;font-size:15px}table{width:100%;font-size:13px;border-collapse:collapse}td{padding:6px;border-bottom:1px solid #252a45}td:last-child{text-align:right;color:#ffd34e;font-weight:bold}@media(max-width:600px){.grid{grid-template-columns:1fr}.top{align-items:flex-start}.pill{font-size:12px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top"><div class="brand">NEON<span>SPIN</span></div><div id="userBox" class="pill hidden"></div></div>
+
+  <section id="auth" class="screen box">
+    <h2 id="authTitle">Login Demo</h2>
+    <input id="username" class="input" placeholder="Username" autocomplete="username">
+    <input id="password" class="input" type="password" placeholder="Password" autocomplete="current-password">
+    <div id="authError" class="error"></div>
+    <button id="authBtn" class="btn gold">LOGIN</button>
+    <button id="toggleBtn" class="btn ghost">Belum punya akun? Register</button>
+  </section>
+
+  <section id="game" class="hidden">
+    <div class="pill" style="display:flex;justify-content:space-between"><span>Saldo virtual</span><b id="balance">0</b> 🪙 <button id="logout" style="margin-left:auto;background:none;border:0;color:#ff809a;cursor:pointer">Logout</button></div>
+    <div class="machine">
+      <div class="reels" id="reels"></div>
+      <div class="controls"><label>Bet <input id="bet" class="bet" type="number" value="100" min="10" step="10"></label><button id="spin" class="spin">SPIN</button></div>
+      <div id="msg" class="msg">Semua koin hanya virtual.</div>
+    </div>
+    <div class="grid">
+      <div class="card"><h3>🏆 Hadiah Virtual</h3><table><tr><td>💎💎💎</td><td>×25</td></tr><tr><td>777</td><td>×20</td></tr><tr><td>🔔🔔🔔</td><td>×12</td></tr><tr><td>🍒🍒🍒</td><td>×8</td></tr><tr><td>BAR BAR BAR</td><td>×5</td></tr></table></div>
+      <div class="card"><h3>📜 Riwayat</h3><div id="history" class="muted">Memuat...</div></div>
+    </div>
+  </section>
+</div>
+<script>
+const $=id=>document.getElementById(id);
+let register=false, busy=false;
+const symbols=["🍒","🔔","7️⃣","💎","BAR","⭐"];
+function draw(vals){$("reels").innerHTML=vals.map((v,i)=>`<div class="cell ${window.matchLine?.includes(i)?"win":""}">${v}</div>`).join("")}
+draw(Array.from({length:9},()=>symbols[Math.floor(Math.random()*symbols.length)]));
+
+async function api(url,opts={}){const r=await fetch(url,{headers:{"Content-Type":"application/json"},...opts});const d=await r.json().catch(()=>({}));if(!r.ok)throw Error(d.error||"Terjadi kesalahan");return d}
+async function load(){
+  try{const u=await api("/api/me");$("auth").classList.add("hidden");$("game").classList.remove("hidden");$("userBox").classList.remove("hidden");$("userBox").textContent="@"+u.username;$("balance").textContent=u.virtual_coins.toLocaleString("id-ID");loadHistory()}catch(e){}
+}
+async function loadHistory(){const rows=await api("/api/history");$("history").innerHTML=rows.length?rows.map(r=>`<div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #252a45"><span>${r.payout_virtual?"Menang":"Spin"}</span><b style="color:${r.payout_virtual?"#5cffb1":"#ff809a"}">${r.payout_virtual?"+":""}${Number(r.payout_virtual).toLocaleString("id-ID")}</b></div>`).join(""):"Belum ada spin."}
+$("toggleBtn").onclick=()=>{register=!register;$("authTitle").textContent=register?"Register Demo":"Login Demo";$("authBtn").textContent=register?"REGISTER":"LOGIN";$("toggleBtn").textContent=register?"Sudah punya akun? Login":"Belum punya akun? Register";$("authError").textContent=""}
+$("authBtn").onclick=async()=>{try{const username=$("username").value,password=$("password").value;await api(register?"/api/register":"/api/login",{method:"POST",body:JSON.stringify({username,password})});load()}catch(e){$("authError").textContent=e.message}}
+$("logout").onclick=async()=>{await api("/api/logout",{method:"POST"});location.reload()}
+$("spin").onclick=async()=>{
+ if(busy)return;const bet=Number($("bet").value);busy=true;$("spin").disabled=true;$("msg").textContent="🎲 Memutar...";
+ let timer=setInterval(()=>draw(Array.from({length:9},()=>symbols[Math.floor(Math.random()*symbols.length)])),80);
+ try{
+   const r=await api("/api/spin",{method:"POST",body:JSON.stringify({bet})});setTimeout(()=>{},0);clearInterval(timer);window.matchLine=r.matched||[];draw(r.reels);$("balance").textContent=r.balance.toLocaleString("id-ID");$("msg").textContent=r.payout?`🎉 Menang +${r.payout.toLocaleString("id-ID")} koin virtual!`:`Belum beruntung.`;loadHistory()
+ }catch(e){clearInterval(timer);$("msg").textContent=e.message}
+ finally{busy=false;$("spin").disabled=false}
+}
+load();
+</script>
+</body>
+</html>
