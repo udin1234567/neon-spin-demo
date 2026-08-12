@@ -42,12 +42,18 @@ pool.query("SELECT NOW()")
 
 app.use(express.json());
 
+const session = require("express-session");
+const pgSession = require("connect-pg-simple")(session);
+
 app.use(
   session({
-    secret: process.env.SESSION_SECRET || "neon-spin-demo-change-me",
+    store: new pgSession({
+      pool: pool,
+      tableName: "user_sessions"
+    }),
+    secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
-
     cookie: {
       httpOnly: true,
       sameSite: "lax",
