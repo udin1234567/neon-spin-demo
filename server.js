@@ -42,7 +42,6 @@ pool.query("SELECT NOW()")
 
 app.use(express.json());
 
-const session = require("express-session");
 const pgSession = require("connect-pg-simple")(session);
 
 app.use(
