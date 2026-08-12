@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Neon Game</title>
+
+<style>
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  min-height: 100vh;
+  color: white;
+  background: #080d1d;
+}
+
+header {
+  height: 64px;
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #111a31;
+  border-bottom: 1px solid #293653;
+}
+
+.logo {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.back {
+  color: white;
+  text-decoration: none;
+  background: #293654;
+  padding: 9px 14px;
+  border-radius: 10px;
+}
+
+main {
+  max-width: 700px;
+  margin: auto;
+  padding: 20px 15px 40px;
+}
+
+
+/* =========================
+   ZEUS
+========================= */
+
+.zeus-page {
+  background:
+    radial-gradient(circle at top, #684d16, #120e08 70%);
+  min-height: calc(100vh - 64px);
+}
+
+.zeus-title {
+  text-align: center;
+  padding: 20px 0;
+}
+
+.zeus-title h1 {
+  font-size: 30px;
+  color: #ffd95a;
+}
+
+.zeus-title p {
+  color: #d8c58a;
+  margin-top: 6px;
+}
+
+.zeus-reels {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  background: #17130c;
+  padding: 12px;
+  border: 2px solid #c79a32;
+  border-radius: 18px;
+  box-shadow: 0 0 25px rgba(255, 196, 51, .2);
+}
+
+.zeus-cell {
+  height: 95px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #33270e;
+  border: 1px solid #76591b;
+  border-radius: 12px;
+  font-size: 45px;
+}
+
+.zeus-spin {
+  margin-top: 20px;
+  width: 100%;
+  padding: 17px;
+  border: 0;
+  border-radius: 14px;
+  background: #d49a22;
+  color: #211606;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+
+/* =========================
+   SLOT
+========================= */
+
+.slot-page {
+  background:
+    radial-gradient(circle at top, #452078, #090b18 70%);
+  min-height: calc(100vh - 64px);
+}
+
+.slot-title {
+  text-align: center;
+  padding: 20px 0;
+}
+
+.slot-title h1 {
+  font-size: 30px;
+}
+
+.slot-machine {
+  background: #151327;
+  border: 2px solid #7254b5;
+  border-radius: 20px;
+  padding: 14px;
+  box-shadow: 0 0 30px rgba(116, 76, 190, .25);
+}
+
+.slot-reels {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.slot-reel {
+  min-height: 250px;
+  background: #080b16;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid #3a3261;
+}
+
+.slot-symbol {
+  height: 82px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 38px;
+  border-bottom: 1px solid #292440;
+}
+
+.slot-controls {
+  margin-top: 18px;
+  display: flex;
+  gap: 10px;
+}
+
+.slot-spin {
+  flex: 1;
+  padding: 15px;
+  border: 0;
+  border-radius: 12px;
+  background: #6a55d9;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+
+/* =========================
+   MAHJONG
+========================= */
+
+.mahjong-page {
+  background:
+    radial-gradient(circle at top, #155b4b, #071613 75%);
+  min-height: calc(100vh - 64px);
+}
+
+.mahjong-title {
+  text-align: center;
+  padding: 20px 0;
+}
+
+.mahjong-title h1 {
+  font-size: 30px;
+  color: #e9d39a;
+}
+
+.mahjong-board {
+  background: #0d332a;
+  border: 2px solid #3b9276;
+  border-radius: 20px;
+  padding: 15px;
+}
+
+.tiles {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 8px;
+}
+
+.tile {
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f3ead2;
+  color: #222;
+  border-radius: 8px;
+  font-size: 32px;
+  box-shadow: 0 4px 0 #b8aa8d;
+}
+
+.mahjong-spin {
+  width: 100%;
+  margin-top: 20px;
+  padding: 16px;
+  border: 0;
+  border-radius: 12px;
+  background: #d1a842;
+  color: #201705;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+
+/* =========================
+   INFO
+========================= */
+
+.info {
+  text-align: center;
+  margin-top: 18px;
+  color: #aeb8d0;
+}
+
+.result {
+  margin-top: 15px;
+  text-align: center;
+  min-height: 24px;
+  font-weight: bold;
+}
+
+
+/* MOBILE */
+
+@media (max-width: 500px) {
+
+  .zeus-cell {
+    height: 80px;
+    font-size: 35px;
+  }
+
+  .slot-symbol {
+    height: 72px;
+    font-size: 30px;
+  }
+
+  .tile {
+    height: 60px;
+    font-size: 26px;
+  }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+<header>
+
+  <div class="logo">
+    🎮 NEON GAME
+  </div>
+
+  <a class="back" href="lobby.html">
+    ← Lobby
+  </a>
+
+</header>
+
+
+<div id="game"></div>
+
+
+<script>
+
+const params =
+  new URLSearchParams(location.search);
+
+const game =
+  params.get("game") || "zeus-thunder";
+
+
+/* =========================
+   DATA
+========================= */
+
+const games = {
+
+  "zeus-thunder": {
+    category: "zeus",
+    title: "⚡ Zeus Thunder",
+    description: "Thunder demo"
+  },
+
+  "zeus-temple": {
+    category: "zeus",
+    title: "🏛️ Zeus Temple",
+    description: "Temple demo"
+  },
+
+  "zeus-fortune": {
+    category: "zeus",
+    title: "👑 Zeus Fortune",
+    description: "Olympus demo"
+  },
+
+  "diamond-777": {
+    category: "slot",
+    title: "💎 Diamond 777",
+    description: "Classic slot demo"
+  },
+
+  "dragon-spin": {
+    category: "slot",
+    title: "🐉 Dragon Spin",
+    description: "Dragon demo"
+  },
+
+  "fortune-star": {
+    category: "slot",
+    title: "⭐ Fortune Star",
+    description: "Star demo"
+  },
+
+  "mahjong-fortune": {
+    category: "mahjong",
+    title: "🀄 Mahjong Fortune",
+    description: "Mahjong demo"
+  },
+
+  "mahjong-dragon": {
+    category: "mahjong",
+    title: "🐲 Mahjong Dragon",
+    description: "Dragon demo"
+  },
+
+  "mahjong-gold": {
+    category: "mahjong",
+    title: "🏮 Mahjong Gold",
+    description: "Gold demo"
+  }
+
+};
+
+
+/* =========================
+   ZEUS
+========================= */
+
+function renderZeus(data) {
+
+  document.body.className = "zeus-page";
+
+  document.getElementById("game").innerHTML = `
+
+    <main>
+
+      <div class="zeus-title">
+
+        <h1>${data.title}</h1>
+
+        <p>${data.description}</p>
+
+      </div>
+
+
+      <div class="zeus-reels">
+
+        <div class="zeus-cell">⚡</div>
+        <div class="zeus-cell">👑</div>
+        <div class="zeus-cell">💎</div>
+
+        <div class="zeus-cell">🔥</div>
+        <div class="zeus-cell">⚡</div>
+        <div class="zeus-cell">👑</div>
+
+        <div class="zeus-cell">💎</div>
+        <div class="zeus-cell">🔥</div>
+        <div class="zeus-cell">⚡</div>
+
+      </div>
+
+
+      <button
+        class="zeus-spin"
+        onclick="spinZeus()"
+      >
+        ⚡ SPIN DEMO
+      </button>
+
+
+      <div
+        class="result"
+        id="result"
+      ></div>
+
+
+      <div class="info">
+        Virtual demo only
+      </div>
+
+    </main>
+
+  `;
+
+}
+
+
+/* =========================
+   SLOT
+========================= */
+
+function renderSlot(data) {
+
+  document.body.className = "slot-page";
+
+  document.getElementById("game").innerHTML = `
+
+    <main>
+
+      <div class="slot-title">
+
+        <h1>${data.title}</h1>
+
+        <p>${data.description}</p>
+
+      </div>
+
+
+      <div class="slot-machine">
+
+        <div class="slot-reels">
+
+          <div class="slot-reel">
+
+            <div class="slot-symbol">🍒</div>
+            <div class="slot-symbol">💎</div>
+            <div class="slot-symbol">7️⃣</div>
+
+          </div>
+
+
+          <div class="slot-reel">
+
+            <div class="slot-symbol">⭐</div>
+            <div class="slot-symbol">🔔</div>
+            <div class="slot-symbol">🍒</div>
+
+          </div>
+
+
+          <div class="slot-reel">
+
+            <div class="slot-symbol">7️⃣</div>
+            <div class="slot-symbol">💎</div>
+            <div class="slot-symbol">⭐</div>
+
+          </div>
+
+        </div>
+
+
+        <div class="slot-controls">
+
+          <button
+            class="slot-spin"
+            onclick="spinSlot()"
+          >
+            🎰 SPIN DEMO
+          </button>
+
+        </div>
+
+
+        <div
+          class="result"
+          id="result"
+        ></div>
+
+      </div>
+
+
+      <div class="info">
+        Virtual demo only
+      </div>
+
+    </main>
+
+  `;
+
+}
+
+
+/* =========================
+   MAHJONG
+========================= */
+
+function renderMahjong(data) {
+
+  document.body.className = "mahjong-page";
+
+  document.getElementById("game").innerHTML = `
+
+    <main>
+
+      <div class="mahjong-title">
+
+        <h1>${data.title}</h1>
+
+        <p>${data.description}</p>
+
+      </div>
+
+
+      <div class="mahjong-board">
+
+        <div class="tiles">
+
+          <div class="tile">🀄</div>
+          <div class="tile">🀅</div>
+          <div class="tile">🀆</div>
+          <div class="tile">🀇</div>
+          <div class="tile">🀈</div>
+
+          <div class="tile">🀉</div>
+          <div class="tile">🀊</div>
+          <div class="tile">🀋</div>
+          <div class="tile">🀌</div>
+          <div class="tile">🀍</div>
+
+          <div class="tile">🀎</div>
+          <div class="tile">🀏</div>
+          <div class="tile">🀐</div>
+          <div class="tile">🀑</div>
+          <div class="tile">🀒</div>
+
+        </div>
+
+
+        <button
+          class="mahjong-spin"
+          onclick="spinMahjong()"
+        >
+          🀄 SPIN DEMO
+        </button>
+
+
+        <div
+          class="result"
+          id="result"
+        ></div>
+
+      </div>
+
+
+      <div class="info">
+        Virtual demo only
+      </div>
+
+    </main>
+
+  `;
+
+}
+
+
+/* =========================
+   DEMO FUNCTIONS
+========================= */
+
+function spinZeus() {
+
+  const symbols =
+    ["⚡","👑","💎","🔥","🌟"];
+
+  const cells =
+    document.querySelectorAll(
+      ".zeus-cell"
+    );
+
+  cells.forEach(cell => {
+
+    cell.textContent =
+      symbols[
+        Math.floor(
+          Math.random() *
+          symbols.length
+        )
+      ];
+
+  });
+
+  document.getElementById("result")
+    .textContent =
+    "⚡ Hasil demo berhasil diacak!";
+
+}
+
+
+function spinSlot() {
+
+  const symbols =
+    ["🍒","💎","7️⃣","⭐","🔔","🍋"];
+
+  const cells =
+    document.querySelectorAll(
+      ".slot-symbol"
+    );
+
+  cells.forEach(cell => {
+
+    cell.textContent =
+      symbols[
+        Math.floor(
+          Math.random() *
+          symbols.length
+        )
+      ];
+
+  });
+
+  document.getElementById("result")
+    .textContent =
+    "🎰 Hasil demo berhasil diacak!";
+
+}
+
+
+function spinMahjong() {
+
+  const symbols =
+    ["🀄","🀅","🀆","🀇","🀈",
+     "🀉","🀊","🀋","🀌","🀍"];
+
+  const cells =
+    document.querySelectorAll(
+      ".tile"
+    );
+
+  cells.forEach(cell => {
+
+    cell.textContent =
+      symbols[
+        Math.floor(
+          Math.random() *
+          symbols.length
+        )
+      ];
+
+  });
+
+  document.getElementById("result")
+    .textContent =
+    "🀄 Hasil demo berhasil diacak!";
+
+}
+
+
+/* =========================
+   START GAME
+========================= */
+
+const selectedGame =
+  games[game] ||
+  games["zeus-thunder"];
+
+
+if (selectedGame.category === "zeus") {
+
+  renderZeus(selectedGame);
+
+}
+
+else if (
+  selectedGame.category === "slot"
+) {
+
+  renderSlot(selectedGame);
+
+}
+
+else if (
+  selectedGame.category === "mahjong"
+) {
+
+  renderMahjong(selectedGame);
+
+}
+
+</script>
+
+</body>
+</html>
