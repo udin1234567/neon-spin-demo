@@ -41,7 +41,24 @@ const symbols=["🍒","🔔","7️⃣","💎","BAR","⭐"];
 function draw(vals){$("reels").innerHTML=vals.map((v,i)=>`<div class="cell ${window.matchLine?.includes(i)?"win":""}">${v}</div>`).join("")}
 draw(Array.from({length:9},()=>symbols[Math.floor(Math.random()*symbols.length)]));
 
-async function api(url,opts={}){const r=await fetch(url,{headers:{"Content-Type":"application/json"},...opts});const d=await r.json().catch(()=>({}));if(!r.ok)throw Error(d.error||"Terjadi kesalahan");return d}
+async function api(url, opts = {}) {
+  const r = await fetch(url, {
+    ...opts,
+    credentials: "include",
+    headers: {
+      "Content-Type": "application/json",
+      ...(opts.headers || {})
+    }
+  });
+
+  const data = await r.json();
+
+  if (!r.ok) {
+    throw new Error(data.error || "Terjadi kesalahan");
+  }
+
+  return data;
+}
 async function load(){
   try{const u=await api("/api/me");$("auth").classList.add("hidden");$("game").classList.remove("hidden");$("userBox").classList.remove("hidden");$("userBox").textContent="@"+u.username;$("balance").textContent=u.virtual_coins.toLocaleString("id-ID");loadHistory()}catch(e){}
 }
