@@ -644,12 +644,4 @@ app.get("/api/health", async (req, res) => {
   ==========================================
 */
 
-app.listen(
-  PORT,
-  "0.0.0.0",
-  () => {
-    console.log(
-      `Neon Spin berjalan di port ${PORT}`
-    );
-  }
-);
+module.exports = app;
