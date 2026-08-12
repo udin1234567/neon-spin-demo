@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0"
+>
+
+<title>Game Lobby</title>
+
+<style>
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+
+  font-family: Arial, sans-serif;
+
+  background:
+    radial-gradient(
+      circle at top,
+      #202b50,
+      #080c18 70%
+    );
+
+  color: white;
+
+  min-height: 100vh;
+}
+
+
+/* TOP BAR */
+
+header {
+
+  height: 65px;
+
+  padding: 0 18px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  background: #11182b;
+
+  border-bottom: 1px solid #293552;
+
+  position: sticky;
+
+  top: 0;
+
+  z-index: 10;
+}
+
+.logo {
+
+  font-size: 20px;
+
+  font-weight: bold;
+}
+
+.balance {
+
+  background: #202b45;
+
+  padding: 10px 15px;
+
+  border-radius: 20px;
+
+  font-size: 14px;
+}
+
+
+/* CONTENT */
+
+main {
+
+  max-width: 1100px;
+
+  margin: auto;
+
+  padding: 25px 15px 50px;
+}
+
+
+/* HERO */
+
+.hero {
+
+  padding: 35px 25px;
+
+  margin-bottom: 35px;
+
+  border-radius: 22px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #293968,
+      #151b31
+    );
+
+  border: 1px solid #344467;
+}
+
+.hero h1 {
+
+  font-size: 32px;
+
+  margin-bottom: 8px;
+}
+
+.hero p {
+
+  color: #aeb8d0;
+}
+
+
+/* CATEGORY */
+
+.category {
+
+  margin-bottom: 35px;
+}
+
+.category-title {
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  margin-bottom: 15px;
+}
+
+.category-title h2 {
+
+  font-size: 22px;
+}
+
+.category-title span {
+
+  color: #8f9bb7;
+
+  font-size: 13px;
+}
+
+
+/* GAME GRID */
+
+.games {
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, 1fr);
+
+  gap: 16px;
+}
+
+
+/* GAME CARD */
+
+.game {
+
+  background: #151d32;
+
+  border-radius: 17px;
+
+  overflow: hidden;
+
+  border: 1px solid #293654;
+
+  transition: .2s;
+}
+
+.game:hover {
+
+  transform: translateY(-5px);
+
+  border-color: #6177aa;
+}
+
+
+/* GAME IMAGE */
+
+.game-image {
+
+  height: 155px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  font-size: 65px;
+}
+
+
+/* THEMES */
+
+.zeus {
+
+  background:
+    linear-gradient(
+      135deg,
+      #50380f,
+      #a7771c
+    );
+}
+
+.slot {
+
+  background:
+    linear-gradient(
+      135deg,
+      #28175b,
+      #6837a0
+    );
+}
+
+.mahjong {
+
+  background:
+    linear-gradient(
+      135deg,
+      #124438,
+      #24765d
+    );
+}
+
+
+/* INFO */
+
+.game-info {
+
+  padding: 15px;
+}
+
+.game-info h3 {
+
+  margin-bottom: 7px;
+}
+
+.game-info p {
+
+  color: #929db7;
+
+  font-size: 13px;
+
+  margin-bottom: 14px;
+}
+
+
+/* BUTTON */
+
+button {
+
+  width: 100%;
+
+  border: none;
+
+  padding: 12px;
+
+  border-radius: 9px;
+
+  background: #536bd4;
+
+  color: white;
+
+  font-weight: bold;
+
+  cursor: pointer;
+}
+
+button:hover {
+
+  background: #667ee8;
+}
+
+
+/* MOBILE */
+
+@media (max-width: 700px) {
+
+  .games {
+
+    grid-template-columns:
+      repeat(2, 1fr);
+  }
+
+  .game-image {
+
+    height: 125px;
+
+    font-size: 50px;
+  }
+
+}
+
+@media (max-width: 430px) {
+
+  .games {
+
+    grid-template-columns: 1fr;
+  }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<header>
+
+  <div class="logo">
+    🎮 NEON GAME
+  </div>
+
+  <div class="balance">
+
+    💰
+    <span id="balance">
+      ...
+    </span>
+
+  </div>
+
+</header>
+
+
+<main>
+
+
+<!-- HERO -->
+
+<section class="hero">
+
+  <h1>
+    Game Lobby
+  </h1>
+
+  <p>
+    Pilih permainan demo favoritmu.
+  </p>
+
+</section>
+
+
+
+<!-- =====================
+     ZEUS
+===================== -->
+
+<section class="category">
+
+  <div class="category-title">
+
+    <h2>
+      ⚡ Zeus
+    </h2>
+
+    <span>
+      3 Games
+    </span>
+
+  </div>
+
+
+  <div class="games">
+
+
+    <div class="game">
+
+      <div class="game-image zeus">
+        ⚡
+      </div>
+
+      <div class="game-info">
+
+        <h3>
+          Zeus Thunder
+        </h3>
+
+        <p>
+          Thunder demo
+        </p>
+
+        <button
+          onclick="openGame('zeus-thunder')"
+        >
+          MAIN
+        </button>
+
+      </div>
+
+    </div>
+
+
+
+    <div class="game">
+
+      <div class="game-image zeus">
+        🏛️
+      </div>
+
+      <div class="game-info">
+
+        <h3>
+          Zeus Temple
+        </h3>
+
+        <p>
+          Temple demo
+        </p>
+
+        <button
+          onclick="openGame('zeus-temple')"
+        >
+          MAIN
+        </button>
+
+      </div>
+
+    </div>
+
+
+
+    <div class="game">
+
+      <div class="game-image zeus">
+        👑
+      </div>
+
+      <div class="game-info">
+
+        <h3>
+          Zeus Fortune
+        </h3>
+
+        <p>
+          Olympus demo
+        </p>
+
+        <button
+          onclick="openGame('zeus-fortune')"
+        >
+          MAIN
+        </button>
+
+      </div>
+
+    </div>
+
+
+  </div>
+
+</section>
+
+
+
+<!-- =====================
+     SLOT
+===================== -->
+
+<section class="category">
+
+  <div class="category-title">
+
+    <h2>
+      🎰 Slot
+    </h2>
+
+    <span>
+      3 Games
+    </span>
+
+  </div>
+
+
+  <div class="games">
+
+
+    <div class="game">
+
+      <div class="game-image slot">
+        💎
+      </div>
+
+      <div class="game-info">
+
+        <h3>
+          Diamond 777
+        </h3>
+
+        <p>
+          Classic slot demo
+        </p>
+
+        <button
+          onclick="openGame('diamond-777')"
+        >
+          MAIN
+        </button>
+
+      </div>
+
+    </div>
+
+
+
+    <div class="game">
+
+      <div class="game-image slot">
+        🐉
+      </div>
+
+      <div class="game-info">
+
+        <h3>
+          Dragon Spin
+        </h3>
+
+        <p>
+          Dragon demo
+        </p>
+
+        <button
+          onclick="openGame('dragon-spin')"
+        >
+          MAIN
+        </button>
+
+      </div>
+
+    </div>
+
+
+
+    <div class="game">
+
+      <div class="game-image slot">
+        ⭐
+      </div>
+
+      <div class="game-info">
+
+        <h3>
+          Fortune Star
+        </h3>
+
+        <p>
+          Star demo
+        </p>
+
+        <button
+          onclick="openGame('fortune-star')"
+        >
+          MAIN
+        </button>
+
+      </div>
+
+    </div>
+
+
+  </div>
+
+</section>
+
+
+
+<!-- =====================
+     MAHJONG
+===================== -->
+
+<section class="category">
+
+  <div class="category-title">
+
+    <h2>
+      🀄 Mahjong
+    </h2>
+
+    <span>
+      3 Games
+    </span>
+
+  </div>
+
+
+  <div class="games">
+
+
+    <div class="game">
+
+      <div class="game-image mahjong">
+        🀄
+      </div>
+
+      <div class="game-info">
+
+        <h3>
+          Mahjong Fortune
+        </h3>
+
+        <p>
+          Mahjong demo
+        </p>
+
+        <button
+          onclick="openGame('mahjong-fortune')"
+        >
+          MAIN
+        </button>
+
+      </div>
+
+    </div>
+
+
+
+    <div class="game">
+
+      <div class="game-image mahjong">
+        🐲
+      </div>
+
+      <div class="game-info">
+
+        <h3>
+          Mahjong Dragon
+        </h3>
+
+        <p>
+          Dragon demo
+        </p>
+
+        <button
+          onclick="openGame('mahjong-dragon')"
+        >
+          MAIN
+        </button>
+
+      </div>
+
+    </div>
+
+
+
+    <div class="game">
+
+      <div class="game-image mahjong">
+        🏮
+      </div>
+
+      <div class="game-info">
+
+        <h3>
+          Mahjong Gold
+        </h3>
+
+        <p>
+          Gold demo
+        </p>
+
+        <button
+          onclick="openGame('mahjong-gold')"
+        >
+          MAIN
+        </button>
+
+      </div>
+
+    </div>
+
+
+  </div>
+
+</section>
+
+
+</main>
+
+
+<script>
+
+
+/* SALDO USER */
+
+async function loadUser() {
+
+  try {
+
+    const response =
+      await fetch("/api/me");
+
+
+    if (!response.ok) {
+
+      document
+        .getElementById("balance")
+        .textContent = "Guest";
+
+      return;
+    }
+
+
+    const user =
+      await response.json();
+
+
+    document
+      .getElementById("balance")
+      .textContent =
+      Number(
+        user.virtual_coins
+      ).toLocaleString("id-ID");
+
+
+  } catch (error) {
+
+    console.error(error);
+
+  }
+
+}
+
+
+/* BUKA GAME */
+
+function openGame(game) {
+
+  location.href =
+    "/game.html?game=" +
+    encodeURIComponent(game);
+
+}
+
+
+loadUser();
+
+</script>
+
+
+</body>
+
+</html>
